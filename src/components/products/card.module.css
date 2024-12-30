@@ -1,0 +1,3 @@
+.card {
+  @apply rounded p-4 h-[240px] bg-black hover:shadow-md hover:shadow-accent transition-all duration-200 ease-in-out bg-contain bg-no-repeat bg-center hover:transform hover:bg-[length:55%] relative;
+}

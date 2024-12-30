@@ -1,5 +1,5 @@
 .hero {
-  @apply container grid md:grid-cols-3 gap-4 min-h-[440px];
+  @apply container grid md:grid-cols-3 gap-4 min-h-[440px] mt-4;
 }
 
 .banner {
