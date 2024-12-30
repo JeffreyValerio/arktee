@@ -3,11 +3,12 @@
 import 'swiper/css';
 import { Autoplay, FreeMode, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Card } from '../products/Card';
+import { Card, ProductTypeCard } from '../products/Card';
+import styles from './carousel.module.css'
 
-export const Slider = () => {
+export const Slider = ({ products }: { products: ProductTypeCard[] }) => {
     return (
-        <div>
+        <div className={styles.carousel}>
             <Swiper
                 loop
                 autoplay={{
@@ -34,21 +35,11 @@ export const Slider = () => {
                     }
                 }}
                 className="mySwiper !py-4">
-                <SwiperSlide>
-                    <Card />
-                </SwiperSlide>
-                <SwiperSlide>
-                    CARD
-                </SwiperSlide>
-                <SwiperSlide>
-                    CARD
-                </SwiperSlide>
-                <SwiperSlide>
-                    CARD
-                </SwiperSlide>
-                <SwiperSlide>
-                    CARD
-                </SwiperSlide>
+                {products.map((product: ProductTypeCard) => (
+                    <SwiperSlide key={product.slug?.current}>
+                        <Card product={product} />
+                    </SwiperSlide>
+                ))}
             </Swiper>
         </div>
     )

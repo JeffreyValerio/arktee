@@ -1,4 +1,3 @@
-export * from "@/components/carousel/Carousel";
 export * from "@/components/carousel/Slider";
 
 export * from "@/components/hero/Hero";
