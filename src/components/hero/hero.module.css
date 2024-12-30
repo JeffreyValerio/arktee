@@ -1,0 +1,15 @@
+.hero {
+  @apply container grid md:grid-cols-3 gap-4 min-h-[440px];
+}
+
+.banner {
+  @apply bg-black bg-img-placeholder rounded md:col-start-1 md:col-end-3 relative;
+}
+
+.banner a {
+  @apply absolute bottom-4 left-4 text-2xl;
+}
+
+.aside {
+  @apply bg-black bg-img-placeholder rounded bg-center object-scale-down bg-no-repeat bg-contain;
+}

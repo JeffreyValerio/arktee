@@ -5,6 +5,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --accent: 13, 88%, 55%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,5 +18,25 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Montserrat, sans-serif;
+}
+
+@layer base {
+  a {
+    @apply hover:text-accent transition-colors ease-in-out duration-300;
+  }
+}
+
+@layer utilities {
+  .container {
+    @apply mx-auto max-w-7xl px-4 md:px-0;
+  }
+
+  .image {
+    @apply bg-center object-scale-down bg-no-repeat bg-contain;
+  }
+
+  .hover-effect {
+    @apply shadow hover:shadow-md hover:shadow-accent transition-all duration-500 ease-in-out;
+  }
 }

@@ -8,9 +8,16 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        "img-placeholder": "url('/assets/img/placeholder.png')",
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
       },
     },
   },
