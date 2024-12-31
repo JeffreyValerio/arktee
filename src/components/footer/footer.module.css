@@ -1,0 +1,7 @@
+.footer {
+  @apply py-10 flex mx-auto max-w-7xl gap-x-8 h-full;
+}
+
+.bottom {
+  @apply text-[12px] flex flex-col md:flex-row items-center text-center justify-center md:justify-between border-t py-4 max-w-7xl gap-y-2
+}

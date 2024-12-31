@@ -1,0 +1,29 @@
+.header {
+  @apply hidden md:grid grid-cols-3 items-center justify-between my-4 md:mb-0;
+}
+
+.headerMobile {
+  @apply block md:hidden;
+}
+
+/* ICONS */
+.icons {
+  @apply flex items-center justify-end;
+}
+.iconsBar {
+  @apply flex items-center gap-4 bg-accent rounded w-fit py-[6px] px-2;
+}
+.iconsBar svg:hover {
+  @apply fill-secondary;
+}
+
+/* NAVBAR */
+.nav {
+  @apply bg-primary hidden md:flex items-center p-4 rounded mt-2 mb-4 overflow-hidden;
+}
+.nav ul {
+  @apply flex gap-12 w-full;
+}
+.nav ul li {
+  @apply font-bold;
+}

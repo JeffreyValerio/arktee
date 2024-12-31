@@ -3,7 +3,7 @@ import { Product } from "@/sanity/types";
 import { urlFor } from "@/sanity/lib/image";
 import Link from "next/link";
 import styles from './card.module.css'
-
+ 
 export type ProductTypeCard = Partial<Omit<Product, "category">> & {
     category?: { title?: string; slug?: { current?: string } };
 };
@@ -27,7 +27,7 @@ export const Card = ({ product }: { product: ProductTypeCard }) => {
                 </div>
             </Link>
             <div className='top-0 absolute rounded-full bg-background px-2 mt-2 text-[12px] uppercase'>
-                <Link href={`../search?query=${product.category}`} className='flex items-center gap-1'>
+                <Link href={`../search?query=${product.category?.slug?.current}`} className='flex items-center gap-1'>
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-tag"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" /><circle cx="7.5" cy="7.5" r=".5" fill="currentColor" /></svg>
                     {product.category?.title}
                 </Link>

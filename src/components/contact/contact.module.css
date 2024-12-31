@@ -1,0 +1,30 @@
+.contact {
+  @apply my-4 grid md:grid-cols-3 gap-4;
+}
+
+.image {
+  @apply rounded md:col-start-2 md:col-end-4;
+}
+
+.image img {
+  @apply rounded h-full w-full;
+}
+
+.form {
+  @apply bg-primary rounded grid grid-cols-1 justify-center text-center items-center px-4 md:px-0 py-8;
+}
+
+.form section h2 {
+  @apply text-xl text-white font-bold uppercase;
+}
+
+.form section {
+  @apply flex flex-col items-center justify-center gap-y-4;
+}
+
+.form input {
+  @apply w-full sm:!w-2/3;
+}
+.form textarea {
+  @apply w-full sm:!w-2/3;
+}

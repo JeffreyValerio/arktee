@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import "./globals.css";
+import { Footer, Header } from "@/components";
 
 const montserrat = localFont({
   src: './fonts/Montserrat.ttf',
@@ -18,7 +19,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={`${montserrat.variable} antialiased`}>
+
+        <Header />
+
         {children}
+
+        <Footer />
+
       </body>
     </html>
   );
