@@ -23,7 +23,7 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
       </div>
     );
   }
-  
+
   return (
     <div className="container">
 
@@ -36,7 +36,7 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
         <div>
           <h1>{product.title}</h1>
           <p className="text-3xl mt-4 font-bold text-accent w-fit">{currencyFormat(product.price ?? 0)}</p>
- 
+
           <p className="py-8">{product.description}</p>
 
           <h3 className="uppercase mt-4 mb-2 text-[12px] text-gray-500">Color</h3>

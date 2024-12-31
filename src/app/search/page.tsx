@@ -34,7 +34,6 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     }
 
     return (
-
         <div className="container">
             <div className="flex justify-center text-sm ">
                 <ProductSidebar categories={categories} />
