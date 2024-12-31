@@ -3,7 +3,37 @@ import { currencyFormat } from "@/lib/currency-format";
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
 import { PRODUCT_BY_ID_QUERY } from "@/sanity/lib/queries";
+import { Metadata } from "next";
 import Link from "next/link";
+
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+
+  const slug = (await params).slug;
+  const { data: product } = await sanityFetch({ query: PRODUCT_BY_ID_QUERY, params: { slug } });
+  if (!product) {
+    throw new Error('Product not found');
+  }
+  const backgroundImage = product.mainImage ? urlFor(product.mainImage).width(394).height(490).url() : ''
+
+  return {
+    title: product.title,
+    description: product.description ?? '',
+    metadataBase: new URL(`${process.env.NEXT_PUBLIC_URL}`),
+    alternates: {
+      canonical: product.slug ? `/product/${product.slug.current}` : '',
+    },
+    keywords: ['Producto en Costa Rica', 'comprar en Costa Rica', 'camisetas Costa Rica'], // Agregar las palabras clave relevantes del producto
+    openGraph: {
+      images: [backgroundImage],
+      type: "website",
+      siteName: "Arktee",
+      url: product?.slug ? `${process.env.NEXT_PUBLIC_URL}/product/${product.slug.current}` : '',
+      countryName: "Costa Rica",
+      description: product.description ?? '',
+    },
+  };
+}
 
 export default async function ProductDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
 
