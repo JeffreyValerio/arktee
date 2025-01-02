@@ -23,7 +23,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     alternates: {
       canonical: product.slug ? `/product/${product.slug.current}` : '',
     },
-    keywords: ['Adultos Mayores Costa Rica', 'Cuido de Adulto Mayor Costa Rica', 'Niñeras a Domicilio Costa Rica', 'bonsai enfermeria', 'cuido de adulto mayor', 'enfermeras a domicilio costa rica', 'enfermeras costa rica', 'enfermería a domicilio', 'hospital cima', 'hospital la católica'],
     openGraph: {
       images: [backgroundImage],
       type: "website",

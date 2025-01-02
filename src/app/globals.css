@@ -45,6 +45,10 @@ body {
     @apply mx-auto max-w-7xl px-4 md:px-0;
   }
 
+  .heading{
+    @apply text-xl text-center px-4 py-2 bg-black shadow shadow-accent rounded font-bold antialiased;
+  }
+
   .image {
     @apply bg-center object-scale-down bg-no-repeat bg-contain;
   }

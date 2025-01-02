@@ -25,6 +25,10 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         ...category
     }));
 
+    const currentCategory = products.length > 0 && products[0]?.category
+        ? categories.find((cat) => cat.title === products[0]?.category?.title)
+        : null;
+
     if (products.length <= 0) {
         return <NoResults params={{ query }} />
     }
@@ -33,7 +37,11 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         <div className="container">
 
             <div className="flex justify-center">
-                <h1 className="text-xl font-bold px-4 rounded bg-accent w-fit mb-4">Categoría {categories[0].title} </h1>
+                <h1 className="heading my-4">
+                    {currentCategory
+                        ? `Categoría ${currentCategory.title}`
+                        : "Categoría no encontrada"}
+                </h1>
             </div>
 
             <div className="flex justify-center text-sm ">
