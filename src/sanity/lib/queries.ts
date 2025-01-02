@@ -2,9 +2,8 @@ import { defineQuery } from "next-sanity";
 
 export const PRODUCTS_QUERY =
   defineQuery(`*[_type == "product" && defined(slug.current) && 
-    (!defined($search) || $search == "" || title match $search || description match $search || category->title match $search)
-  ] 
-  | order(_createdAt desc) {
+    (!defined($search) || $search == "" || title match $search || description match $search || category->title match $search) ] 
+    | order(_createdAt desc) {
     _id, 
     title,  
     slug, 
@@ -24,8 +23,7 @@ export const PRODUCTS_QUERY =
   }
 `);
 
-export const RELATED_PRODUCTS_QUERY =
-  defineQuery(`
+export const RELATED_PRODUCTS_QUERY = defineQuery(`
     *[_type == "product" && slug.current != $slug && category->title == $category] | order(views desc) {
     _id, 
     title,   
@@ -52,7 +50,7 @@ export const PRODUCT_BY_ID_QUERY =
     title,  
     slug,    
     mainImage, 
-    price,
+    price, 
     description,
     category -> {
       title, slug
@@ -64,11 +62,13 @@ export const PRODUCT_BY_ID_QUERY =
       size
     },
     views
-  }`);
+  }
+`);
 
 export const CATEGORIES_QUERY =
   defineQuery(`*[_type == "category" && defined(slug.current)] | order(title desc) {
   _id,  
   title,  
   slug
-}`);
+  }
+`);

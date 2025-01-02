@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Card, ProductTypeCard } from "@/components/products/Card";
 import { CATEGORIES_QUERY, PRODUCTS_QUERY } from "@/sanity/lib/queries";
 import { client } from "@/sanity/lib/client";
-import { ProductSidebar } from "@/components";
+import { NoResults, ProductSidebar } from "@/components";
 import { sanityFetch } from "@/sanity/lib/live";
 import { Category } from "@/sanity/types";
 
@@ -26,15 +26,16 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     }));
 
     if (products.length <= 0) {
-        return (
-            <div className="container">
-                <h1>No se encontraron resultados para: <strong className="underline">{query}</strong></h1>
-            </div>
-        );
+        return <NoResults params={{ query }} />
     }
 
     return (
         <div className="container">
+
+            <div className="flex justify-center">
+                <h1 className="text-xl font-bold px-4 rounded bg-accent w-fit mb-4">Categoría {categories[0].title} </h1>
+            </div>
+
             <div className="flex justify-center text-sm ">
                 <ProductSidebar categories={categories} />
 

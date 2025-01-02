@@ -209,7 +209,7 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PRODUCTS_QUERY
-// Query: *[_type == "product" && defined(slug.current) &&     (!defined($search) || $search == "" || title match $search || description match $search || category->title match $search)  ]   | order(_createdAt desc) {    _id,     title,      slug,     mainImage,     price,    description,    category -> {      title, slug    },    colors[]-> {      color, hex    },    sizes[]-> {       size    },    views  }
+// Query: *[_type == "product" && defined(slug.current) &&     (!defined($search) || $search == "" || title match $search || description match $search || category->title match $search) ]     | order(_createdAt desc) {    _id,     title,      slug,     mainImage,     price,    description,    category -> {      title, slug    },    colors[]-> {      color, hex    },    sizes[]-> {       size    },    views  }
 export type PRODUCTS_QUERYResult = Array<{
   _id: string;
   title: string | null;
@@ -275,7 +275,7 @@ export type RELATED_PRODUCTS_QUERYResult = Array<{
   views: number | null;
 }>;
 // Variable: PRODUCT_BY_ID_QUERY
-// Query: *[_type == "product" && slug.current == $slug][0] {    _id,     title,      slug,        mainImage,     price,    description,    category -> {      title, slug    },    colors[]-> {       color, hex    },    sizes[]-> {       size    },    views  }
+// Query: *[_type == "product" && slug.current == $slug][0] {    _id,     title,      slug,        mainImage,     price,     description,    category -> {      title, slug    },    colors[]-> {       color, hex    },    sizes[]-> {       size    },    views  }
 export type PRODUCT_BY_ID_QUERYResult = {
   _id: string;
   title: string | null;
@@ -308,7 +308,7 @@ export type PRODUCT_BY_ID_QUERYResult = {
   views: number | null;
 } | null;
 // Variable: CATEGORIES_QUERY
-// Query: *[_type == "category" && defined(slug.current)] | order(title desc) {  _id,    title,    slug}
+// Query: *[_type == "category" && defined(slug.current)] | order(title desc) {  _id,    title,    slug  }
 export type CATEGORIES_QUERYResult = Array<{
   _id: string;
   title: string | null;
@@ -319,9 +319,9 @@ export type CATEGORIES_QUERYResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"product\" && defined(slug.current) && \n    (!defined($search) || $search == \"\" || title match $search || description match $search || category->title match $search)\n  ] \n  | order(_createdAt desc) {\n    _id, \n    title,  \n    slug, \n    mainImage, \n    price,\n    description,\n    category -> {\n      title, slug\n    },\n    colors[]-> {\n      color, hex\n    },\n    sizes[]-> { \n      size\n    },\n    views\n  }\n": PRODUCTS_QUERYResult;
+    "*[_type == \"product\" && defined(slug.current) && \n    (!defined($search) || $search == \"\" || title match $search || description match $search || category->title match $search) ] \n    | order(_createdAt desc) {\n    _id, \n    title,  \n    slug, \n    mainImage, \n    price,\n    description,\n    category -> {\n      title, slug\n    },\n    colors[]-> {\n      color, hex\n    },\n    sizes[]-> { \n      size\n    },\n    views\n  }\n": PRODUCTS_QUERYResult;
     "\n    *[_type == \"product\" && slug.current != $slug && category->title == $category] | order(views desc) {\n    _id, \n    title,   \n    slug, \n    mainImage, \n    price,\n    description,\n    category -> {\n      title, slug\n    },\n    colors[]-> {\n      color, hex\n    },\n    sizes[]-> { \n      size\n    },\n    views\n  }\n": RELATED_PRODUCTS_QUERYResult;
-    "*[_type == \"product\" && slug.current == $slug][0] {\n    _id, \n    title,  \n    slug,    \n    mainImage, \n    price,\n    description,\n    category -> {\n      title, slug\n    },\n    colors[]-> { \n      color, hex\n    },\n    sizes[]-> { \n      size\n    },\n    views\n  }": PRODUCT_BY_ID_QUERYResult;
-    "*[_type == \"category\" && defined(slug.current)] | order(title desc) {\n  _id,  \n  title,  \n  slug\n}": CATEGORIES_QUERYResult;
+    "*[_type == \"product\" && slug.current == $slug][0] {\n    _id, \n    title,  \n    slug,    \n    mainImage, \n    price, \n    description,\n    category -> {\n      title, slug\n    },\n    colors[]-> { \n      color, hex\n    },\n    sizes[]-> { \n      size\n    },\n    views\n  }\n": PRODUCT_BY_ID_QUERYResult;
+    "*[_type == \"category\" && defined(slug.current)] | order(title desc) {\n  _id,  \n  title,  \n  slug\n  }\n": CATEGORIES_QUERYResult;
   }
 }

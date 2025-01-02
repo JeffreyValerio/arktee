@@ -1,16 +1,47 @@
-import { Icons, Related } from "@/components";
 import { currencyFormat } from "@/lib/currency-format";
-import { urlFor } from "@/sanity/lib/image";
-import { sanityFetch } from "@/sanity/lib/live";
+import { Icons, Related } from "@/components";
 import { PRODUCT_BY_ID_QUERY } from "@/sanity/lib/queries";
+import { sanityFetch } from "@/sanity/lib/live";
+import { urlFor } from "@/sanity/lib/image";
 import Link from "next/link";
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const slug = (await params).slug;
+
+  const { data: product } = await sanityFetch({ query: PRODUCT_BY_ID_QUERY, params: { slug } });
+
+  if (!product) {
+    throw new Error('Product not found');
+  }
+
+  const backgroundImage = product.mainImage ? urlFor(product.mainImage).width(394).height(490).url() : ''
+
+  return {
+    title: product.title,
+    description: product.description,
+    metadataBase: new URL(`${process.env.NEXT_PUBLIC_URL}`),
+    alternates: {
+      canonical: product.slug ? `/product/${product.slug.current}` : '',
+    },
+    keywords: ['Adultos Mayores Costa Rica', 'Cuido de Adulto Mayor Costa Rica', 'Niñeras a Domicilio Costa Rica', 'bonsai enfermeria', 'cuido de adulto mayor', 'enfermeras a domicilio costa rica', 'enfermeras costa rica', 'enfermería a domicilio', 'hospital cima', 'hospital la católica'],
+    openGraph: {
+      images: [backgroundImage],
+      type: "website",
+      siteName: "Arktee camisetas para todos los gustos",
+      url: product?.slug ? `${process.env.NEXT_PUBLIC_URL}/product/${product.slug.current}` : '',
+      emails: `ventas@ark-tee.com`,
+      phoneNumbers: ["7144-7395"],
+      countryName: "Costa Rica",
+      description: product.description ?? '',
+    },
+  };
+}
 export default async function ProductDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
 
   const slug = (await params).slug;
   const { data: product } = await sanityFetch({ query: PRODUCT_BY_ID_QUERY, params: { slug } });
 
-  const defaultImage = '/assets/img/tshirt.png';
+  const defaultImage = '/assets/img/placeholder.png';
 
   const backgroundImage = product?.mainImage
     ? urlFor(product.mainImage).width(394).height(490).url()
