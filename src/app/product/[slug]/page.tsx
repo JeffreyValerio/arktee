@@ -94,7 +94,7 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
             <Link
               className="flex justify-center items-center gap-2 font-bold bg-primary w-full py-2 px-4 text-center rounded-md"
               title="Escríbenos por WhatsApp"
-              href={`https://wa.me/50671447395?text=Hola, me interesa saber más información sobre la camiseta: **${product.title}** %0Ahttps://www.arktee.com/product/${slug}`}
+              href={`https://wa.me/50671447395?text=Hola, me interesa saber más información sobre la camiseta: **${product.title}** %0Ahttps://${process.env.NEXT_PUBLIC_URL}/product/${slug}`}
               target="_blank"
               rel="external nofollow">
               <Icons.whatsapp />
