@@ -2,11 +2,12 @@
 
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { usePathname } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Category } from '@/sanity/types';
 
 export function ProductSidebar({ categories }: { categories: Category[] }) {
-    const currentPath = usePathname();
+    const searchParams = useSearchParams(); 
+    const currentQuery = searchParams?.get('query');
 
     return (
         <div className="hidden xl:block px-4 absolute left-0 bg-black/30 py-4 rounded border-r border-b border-secondary w-[120px]">
@@ -14,18 +15,18 @@ export function ProductSidebar({ categories }: { categories: Category[] }) {
                 Colecciones
             </h2>
             <ul className="grid gap-y-1">
-                <li className={cn(
+                {/* <li className={cn(
                     'w-fit',
                     currentPath === `/search/all` ? 'border-b' : ''
                 )}>
                     <Link href={`/search`}>Todas</Link>
-                </li>
+                </li> */}
                 {categories.map((category: Category) => (
                     <li
                         key={category._id}
                         className={cn(
                             'w-fit',
-                            currentPath === `/search/${category.slug?.current}` ? 'border-b' : ''
+                            currentQuery === `${category.slug?.current}` ? 'border-b' : ''
                         )}
                     >
                         <Link href={`/search?query=${category.slug?.current}`}>
