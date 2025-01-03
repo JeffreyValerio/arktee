@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { Logo } from '../common/Logo'
 import styles from './footer.module.css'
 import { FooterNavigation } from './Navigation'
