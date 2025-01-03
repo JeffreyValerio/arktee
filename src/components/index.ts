@@ -16,4 +16,5 @@ export * from "../components/hero/Hero";
 export * from "../components/products/Card";
 export * from "../components/products/NoResults";
 export * from "../components/products/ProductSidebar"; 
+export * from "../components/products/ProductSidebarMobile"; 
 export * from "../components/products/Related";

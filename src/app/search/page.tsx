@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Card, ProductTypeCard } from "@/components/products/Card";
 import { CATEGORIES_QUERY, PRODUCTS_QUERY } from "@/sanity/lib/queries";
 import { client } from "@/sanity/lib/client";
-import { NoResults, ProductSidebar } from "@/components";
+import { NoResults, ProductSidebar, ProductSidebarMobile } from "@/components";
 import { sanityFetch } from "@/sanity/lib/live";
 import { Category } from "@/sanity/types";
 
@@ -35,17 +35,22 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
 
     return (
         <div className="container">
+            <div className="flex flex-col items-center text-sm">
 
-            <div className="flex justify-center">
-                <h1 className="heading my-4">
-                    {currentCategory
-                        ? `Categoría ${currentCategory.title}`
-                        : "Categoría no encontrada"}
-                </h1>
-            </div>
+                <div className="hidden md:block">
+                    <ProductSidebar categories={categories} />
+                </div>
+                <div className="md:hidden w-full flex justify-center">
+                    <ProductSidebarMobile categories={categories} />
+                </div>
 
-            <div className="flex justify-center text-sm ">
-                <ProductSidebar categories={categories} />
+                <div className="flex justify-center">
+                    <h1 className="heading my-4">
+                        {currentCategory
+                            ? `Categoría ${currentCategory.title}`
+                            : "Categoría no encontrada"}
+                    </h1>
+                </div>
 
                 <div className="w-full grid md:grid-cols-2 xl:grid-cols-3 gap-4">
                     {products.map((product) => (
