@@ -13,7 +13,7 @@ export const Footer = () => {
 
             <div className={styles.bottom}>
                 <p>&copy; 2024 <strong className='border-b'>ARKTEE</strong> | Derechos reservados</p>
-                <p>Developed by <Link href={'mailto:jeffreyvalerio@hotmail.com'}>Jeffrey Valerio</Link> </p>
+                {/* <p>Developed by <Link href={'mailto:jeffreyvalerio@hotmail.com'}>Jeffrey Valerio</Link> </p> */}
             </div>
         </div>
     )

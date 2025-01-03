@@ -3,5 +3,5 @@
 }
 
 .bottom {
-  @apply text-[12px] flex flex-col md:flex-row items-center text-center justify-center md:justify-between border-t py-4 max-w-7xl gap-y-2
+  @apply text-[12px] flex items-center text-center justify-center border-t py-4
 }
