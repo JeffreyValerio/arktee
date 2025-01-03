@@ -6,16 +6,16 @@ import { cn } from "../../lib/utils";
 
 const navigation = [
     { label: 'Inicio', href: '/' },
-    { label: 'Nosotros', href: '/' },
-    { label: 'Política de privacidad', href: '/' },
-    { label: 'Términos y condiciones', href: '/' },
-    { label: 'FAQ', href: '/' },
-];
+    { label: 'Nosotros', href: '/site/about' },
+    { label: 'Política de privacidad', href: '/site/privacy' },
+    { label: 'Términos y condiciones', href: '/site/terms' },
+    { label: 'FAQ', href: '/site/faq' },
+]; 
 
 export const FooterNavigation = () => {
 
     const currentPath = usePathname()
-
+ 
     return (
         <ul className='grid grid-cols-1 gap-y-2'>
             {navigation.map((m) => (
