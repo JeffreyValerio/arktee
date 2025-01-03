@@ -37,10 +37,10 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         <div className="container">
             <div className="flex flex-col items-center text-sm">
 
-                <div className="hidden md:block">
+                <div className="hidden lg:block">
                     <ProductSidebar categories={categories} />
                 </div>
-                <div className="md:hidden w-full flex justify-center">
+                <div className="lg:hidden w-full flex justify-center">
                     <ProductSidebarMobile categories={categories} />
                 </div>
 
