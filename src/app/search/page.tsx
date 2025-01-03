@@ -44,8 +44,8 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                     <ProductSidebarMobile categories={categories} />
                 </div>
 
-                <div className="flex justify-center">
-                    <h1 className="heading my-4">
+                <div className="flex justify-center items-center w-full">
+                    <h1 className="heading">
                         {currentCategory
                             ? `Categoría ${currentCategory.title}`
                             : "Categoría no encontrada"}
