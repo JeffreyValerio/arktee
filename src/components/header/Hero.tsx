@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export const Hero = () => {
   return (
-    <section className="relative py-12 md:h-[calc(100vh-2.25rem-5rem)] md:py-0 flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 overflow-hidden">
+    <section className="relative h-[calc(100vh-4rem)] md:h-[calc(100vh-2.25rem-5rem)] flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 overflow-hidden">
       {/* T-shirt Outline with Drawing Effect - Top Right */}
       <div className="absolute top-0 right-0 w-full h-full flex items-start justify-end overflow-hidden pointer-events-none opacity-30 dark:opacity-20">
         <svg 
