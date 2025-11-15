@@ -1,45 +1,35 @@
 import { Separator } from "../ui/separator";
-import { Icons } from "./Icons";
-import { ModeToggle } from "./mode-toogle";
-import Link from "next/link";
+import { Phone, Mail } from "lucide-react";
+import { UserMenu } from "./UserMenu";
 
 export const Topbar = () => {
   return (
-    <div className="text-sm  hidden md:block p-0 text-muted-foreground  bg-background">
-
-      <div className="h-10 max-width flex justify-between items-center">
-
-        <div className="flex items-center space-x-2">
-          <Link
-            href={"https://wa.me/50671447395"}
-            rel=" external nofollow"
+    <div className="hidden md:block border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+      <div className="h-9 max-width flex justify-between items-center px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center gap-4 text-xs text-gray-600 dark:text-gray-400">
+          <a
+            href="https://wa.me/50671447395"
+            rel="external nofollow"
             title="Escríbenos por WhatsApp"
             target="_blank"
-            className="flex space-x-1 items-center px-1"
+            className="flex items-center gap-1.5 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 font-light"
           >
-            <Icons.whatsapp /> <span className="hover:text-accent hover:dark:text-accent-foreground">(506) 7144-7395</span>
-          </Link>
-          <Separator orientation="vertical" />
-          <Link
-            href={"mailto:ventas@arktee.com"}
-            rel=" external nofollow"
-            title="Escríbenos por WhatsApp"
-            target="_blank"
-            className="px-1"
+            <Phone size={12} />
+            <span>(506) 7144-7395</span>
+          </a>
+          <Separator orientation="vertical" className="h-4" />
+          <a
+            href="mailto:ventas@arktee.com"
+            rel="external nofollow"
+            title="Escríbenos por email"
+            className="flex items-center gap-1.5 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 font-light"
           >
-            ventas@arktee.com
-          </Link>
+            <Mail size={12} />
+            <span>ventas@arktee.com</span>
+          </a>
         </div>
 
-        <div className="flex justify-end items-center space-x-2">
-          <ModeToggle />
-
-          <Link href={"/"} className="px-1">Crear cuenta</Link>
-
-          <Separator orientation="vertical" />
- 
-          <Link href={"/"} className="px-1">Iniciar sesión</Link>
-        </div>
+        <UserMenu />
       </div>
     </div>
   );

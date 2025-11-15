@@ -6,6 +6,7 @@ interface SizesProps {
   isAvailable: boolean;
   onSizeChanged: (size: Size) => void;
   selectedSize?: Size;
+  adminView?: boolean;
 }
 
 export const Sizes = ({
@@ -13,18 +14,20 @@ export const Sizes = ({
   isAvailable,
   onSizeChanged,
   selectedSize,
+  adminView
 }: SizesProps) => {
-  const isSelected = selectedSize === size;
+  // En admin view, todos los disponibles se muestran como "seleccionados"
+  const isSelected = adminView ? isAvailable : selectedSize === size;
 
   return (
     <Button
-      disabled={!isAvailable}
+      disabled={!adminView && !isAvailable}
       onClick={() => onSizeChanged(size)}
       className={`text-sm font-medium rounded flex justify-center items-center py-2 px-4 border
         ${
           isSelected
             ? "bg-primary text-white"
-            : "bg-gray-400 hover:bg-primary/100"
+            : "bg-gray-500 hover:bg-primary/100"
         }
       `}
     >
@@ -33,7 +36,7 @@ export const Sizes = ({
         name="size-choice"
         value={size}
         className="sr-only"
-        disabled={!isAvailable}
+        disabled={!adminView && !isAvailable}
         checked={isSelected}
         readOnly
       />

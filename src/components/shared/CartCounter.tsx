@@ -15,10 +15,10 @@ export const CartCounter = () => {
 
   return (
     <div className="relative inline-block">
-      <Link href={"/cart"}>
+      <Link href={totalItemsInCart === 0 ? "/cart" : "/cart"} aria-label="Ver carrito de compras">
         <ShoppingBag className="w-6 h-6" />
         {loaded && totalItemsInCart > 0 && (
-          <span className="absolute -top-2 -right-2 bg-foreground text-white dark:text-black font-bold text-xs w-5 h-5 flex items-center justify-center rounded-full">
+          <span className="fade-in absolute -top-2 -right-2 bg-foreground text-white dark:text-black font-bold text-xs w-5 h-5 flex items-center justify-center rounded-full">
             {totalItemsInCart}
           </span>
         )}

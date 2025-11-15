@@ -14,3 +14,11 @@ export { QuantitySelector } from "@/components/products/QuantitySelector";
 export { Sizes } from "@/components/products/Sizes";
 export { StockLabel } from "@/components/products/StockLabel";
 export { Title } from "@/components/shared/Title";
+export { ProductImage } from "@/components/products/ProductImage";
+export { FeaturedCategories } from "@/components/home/FeaturedCategories";
+export { NewArrivals } from "@/components/home/NewArrivals";
+export { GenderCollections } from "@/components/home/GenderCollections";
+export { QualityMaterials } from "@/components/home/QualityMaterials";
+export { Testimonials } from "@/components/home/Testimonials";
+export { Newsletter } from "@/components/home/Newsletter";
+export * from '@/components/providers/Providers' 

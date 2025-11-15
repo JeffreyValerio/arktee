@@ -11,8 +11,7 @@ export const GetProductBySlug = async ({ slug }: Props) => {
       where: { slug },
       include: {
         ProductImage: true,
-        category: true,
-        color: true,
+        category: true
       },
     });
 

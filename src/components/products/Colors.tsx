@@ -1,13 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Size, Color, Product } from "@prisma/client";
+import { Size, Product } from "@prisma/client";
 import { Sizes } from "@/components";
 import { PackageSearch } from "lucide-react";
 import Link from "next/link";
 
 interface ProductColorsProps {
-  product: Product & { color: Color };
+  product: Product & { color: { hex: string; name: string } };
 }
 
 export const Colors = ({ product }: ProductColorsProps) => {
@@ -58,6 +58,7 @@ export const Colors = ({ product }: ProductColorsProps) => {
                 key={size}
                 size={size}
                 isAvailable={product.sizes.includes(size)}
+                onSizeChanged={() => {}}
               />
             ))}
           </div>

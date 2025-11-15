@@ -26,19 +26,19 @@ export const QuantitySelector = ({
       <div className="flex items-center space-x-1">
         <Button
           onClick={() => onValueChanged(-1)}
-          variant={"ghost"}
-          size={"icon"}
+          variant={"outline"}
+          size={"sm"}
           disabled={quantity == 1}
         >
           <Minus />
         </Button>
-        <span className="ring size-9 flex justify-center items-center rounded">
+        <span className="ring size-8 flex justify-center items-center rounded">
           {quantity}
         </span>
         <Button
           onClick={() => onValueChanged(+1)}
-          variant={"ghost"}
-          size={"icon"}
+          variant={"outline"}
+          size={"sm"}
           disabled={quantity == maxStock}
         >
           <Plus />

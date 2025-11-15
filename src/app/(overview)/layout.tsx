@@ -1,4 +1,5 @@
 import { Footer, Navbar } from "@/components";
+import Providers from "@/components/providers/Providers";
 
 export default function OverviewLayout({
     children
@@ -6,10 +7,10 @@ export default function OverviewLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div>
+        <Providers>
             <Navbar />
             {children}
             <Footer />
-        </div>
+        </Providers>
     );
 } 

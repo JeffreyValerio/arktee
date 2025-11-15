@@ -1,34 +1,45 @@
 import Link from "next/link";
-import ProductCardHorizontal from "./Card-horizontal";
+import ProductCard from "./Card";
+import { getPaginatedProducts } from "@/actions";
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-export const Bestsellers = () => {
+export const Bestsellers = async () => {
+  const { products } = await getPaginatedProducts({ });
+
+  const bestsellers = products.slice(0, 4);
+
+  if (bestsellers.length === 0) return null;
+
   return (
-    <section className="py-16">
-      <div className="max-width">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="font-bold text-3xl sm:text-4xl">Lo más vendido</h2>
-          <Link href="/">
-            Ver más →
+    <section className="py-16 sm:py-20">
+      <div className="max-width px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-12">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-light text-gray-900 dark:text-gray-100 mb-2">
+              Lo más vendido
+            </h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              Los favoritos de nuestros clientes
+            </p>
+          </div>
+          <Link href="/gender/unisex">
+            <Button 
+              variant="ghost" 
+              className="group text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+            >
+              Ver todo
+              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
           </Link>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4 justify-between">
-          <ProductCardHorizontal
-            title="Camiseta personalizada de Floricienta"
-            price={45}
-            rating={5}
-            reviews={0}
-            colors={["#0F172A", "#2563EB"]}
-            image="https://placehold.co/300x400.png"
-          />
-          <ProductCardHorizontal
-            title="Camiseta personalizada de Bad Bunny"
-            price={499}
-            rating={5}
-            reviews={0}
-            colors={["#0F172A", "gray"]}
-            image="https://placehold.co/300x400.png"
-          />
+        {/* Products Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          {bestsellers.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
       </div>
     </section>

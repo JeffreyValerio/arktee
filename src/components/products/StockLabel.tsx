@@ -9,12 +9,12 @@ interface Props {
   slug: string;
 }
 export const StockLabel = ({ slug }: Props) => {
-  const [stock, setStock] = useState(0);
+  const [stock, setStock] = useState<number | undefined>(undefined);
 
   useEffect(() => {
     getStock();
   }, [slug]);
-
+ 
   const getStock = async () => {
     const stock = await GetStockBySlug(slug);
     setStock(stock);

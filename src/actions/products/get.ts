@@ -10,8 +10,7 @@ export const GetProducts = async () => {
       },
       include: {
         category: true,
-        ProductImage: true,
-        color: true
+        ProductImage: true
       },
     });
 

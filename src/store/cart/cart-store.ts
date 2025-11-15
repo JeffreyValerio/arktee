@@ -5,10 +5,17 @@ import { persist } from "zustand/middleware";
 interface State {
   cart: CartProduct[];
   getTotalItems: () => number;
+  getSummaryInfo: () => {
+    numberOfItems: number;
+    subTotal: number;
+    tax: number; // IVA
+    total: number;
+  };
 
   addProductToCart: (product: CartProduct) => void;
-  // updateProductQuantity
-  // removeProduct
+  updateProductQuantity: (product: CartProduct, quantity: number) => void;
+  removeProduct: (product: CartProduct) => void;
+  clearCart: () => void;
 }
 
 export const useCartStore = create<State>()(
@@ -46,7 +53,47 @@ export const useCartStore = create<State>()(
 
         set({ cart: updatedCartProducts });
       },
+
+      updateProductQuantity: (product: CartProduct, quantity: number) => {
+        const { cart } = get();
+        const updatedCart = cart.map((item) => {
+          if (item.id === product.id && item.size === product.size) {
+            return { ...item, quantity };
+          }
+          return item;
+        });
+        set({ cart: updatedCart });
+      },
+
+      removeProduct: (product: CartProduct) => {
+        const { cart } = get();
+        const updatedCart = cart.filter(
+          (item) => !(item.id === product.id && item.size === product.size)
+        );
+        set({ cart: updatedCart });
+      },
+
+      getSummaryInfo: () => {
+        const { cart } = get();
+        const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0.13);
+
+        const numberOfItems = cart.reduce((total, item) => total + item.quantity, 0);
+        const subTotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+        const tax = subTotal * taxRate;
+        const total = subTotal + tax;
+        return {
+          numberOfItems,
+          subTotal,
+          tax,
+          total,
+        };
+      },
+
+      clearCart: () => {
+        set({ cart: [] });
+      }
     }),
+
     { name: "shopping-cart" }
   )
 );
