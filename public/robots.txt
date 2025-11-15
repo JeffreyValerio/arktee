@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://arktee.com/sitemap.xml
+

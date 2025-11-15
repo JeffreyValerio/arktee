@@ -81,7 +81,7 @@ export const createUpdateProduct = async (formData: FormData) => {
             if (files.length > 0) {
                 const uploaded = await uploadImages(files)
                 if (uploaded.length > 0) {
-                    await prisma?.productImage.createMany({
+                    await tx.productImage.createMany({
                         data: uploaded.map(url => ({
                             url,
                             productId: dbProduct.id, // 👈 usar el id del producto recién creado/actualizado
@@ -93,7 +93,7 @@ export const createUpdateProduct = async (formData: FormData) => {
             // Si son URLs directas (caso cuando ya las tienes y las mandas desde el form)
             const urls = formData.getAll('imageUrls') as string[]
             if (urls.length > 0) {
-                await prisma?.productImage.createMany({
+                await tx.productImage.createMany({
                     data: urls.map(url => ({
                         url,
                         productId: dbProduct.id,

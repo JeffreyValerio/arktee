@@ -15,15 +15,23 @@ import { FavoritesCounter } from "./FavoritesCounter";
 import { ComparisonCounter } from "./ComparisonCounter";
 import { Filter, Shirt, Package, Grid, Layers } from "lucide-react";
 import { UserMenu } from "./UserMenu";
+import { MobileSidebar } from "./MobileSidebar";
+import { getCurrentUserAction } from "@/actions/auth/get-user";
 
 export const Navbar = async () => {
   const categories = await GetCategories();
+  const { user } = await getCurrentUserAction();
 
   return (
     <div className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm">
       <Topbar />
       <div className="max-width">
         <div className="h-16 sm:h-20 flex justify-between items-center px-4 sm:px-6 lg:px-8">
+          {/* Mobile Sidebar Button */}
+          <div className="lg:hidden">
+            <MobileSidebar categories={categories} user={user} />
+          </div>
+
           {/* Logo */}
           <NavigationMenu viewport={false}>
             <NavigationMenuList>
@@ -40,31 +48,40 @@ export const Navbar = async () => {
             <NavigationMenu viewport={false}>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-sm font-light text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 data-[state=open]:text-gray-900 dark:data-[state=open]:text-gray-100">
-                    <Filter size={14} className="mr-1.5" />
+                  <NavigationMenuTrigger className="text-sm font-light text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 data-[state=open]:text-gray-900 dark:data-[state=open]:text-gray-100 data-[state=open]:bg-gray-50 dark:data-[state=open]:bg-gray-800 rounded-md px-4 py-2">
+                    <Filter size={16} className="mr-2" />
                     Categorías
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent className="w-[calc(100vw-2rem)] sm:w-[600px] lg:w-[700px] max-w-[calc(100vw-2rem)] sm:max-w-[600px] lg:max-w-[700px]">
-                    <div className="w-full p-6">
-                      <div className="mb-4">
-                        <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-1">
-                          Nuestras Categorías
-                        </h3>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
-                          Explora nuestra colección completa
+                  <NavigationMenuContent className="!left-1/2 !-translate-x-1/2 !top-full !mt-2 !overflow-visible !z-[100] data-[state=open]:!block">
+                    <nav 
+                      className="p-6 bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-visible backdrop-blur-sm" 
+                      style={{ width: 'max-content', minWidth: '500px', maxWidth: '95vw' }}
+                      aria-label="Navegación de categorías"
+                    >
+                      <div className="mb-5">
+                        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">
+                          Categorías
+                        </h2>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Explora nuestra colección
                         </p>
                       </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {categories.map((category) => (
-                          <CategoryCard
-                            key={category.id}
-                            title={category.name}
-                            href={`/category/${category.name}`}
-                            productCount={category.productCount}
-                          />
-                        ))}
-                      </div>
-                    </div>
+                      {categories && categories.length > 0 ? (
+                        <ul className="grid grid-cols-2 gap-2 list-none m-0 p-0" style={{ width: '100%' }}>
+                          {categories.map((category) => (
+                            <li key={category.id}>
+                              <CategoryCard
+                                title={category.name}
+                                href={`/category/${category.name}`}
+                                productCount={category.productCount}
+                              />
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="text-sm text-gray-500 dark:text-gray-400">No hay categorías disponibles</p>
+                      )}
+                    </nav>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
@@ -112,16 +129,11 @@ export const Navbar = async () => {
             </NavigationMenu>
           </div>
 
-          {/* Actions */}
-          <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
+          {/* Actions - Hidden on mobile, shown in sidebar */}
+          <div className="hidden lg:flex items-center gap-2 sm:gap-3 md:gap-4">
             <FavoritesCounter />
             <ComparisonCounter />
             <CartCounter />
-          </div>
-          
-          {/* Mobile User Menu - Solo visible en mobile ya que en desktop está en el Topbar */}
-          <div className="md:hidden">
-            <UserMenu />
           </div>
         </div>
       </div>
@@ -156,41 +168,33 @@ function CategoryCard({
   href: string;
   productCount: number;
 }) {
-  const Icon = getCategoryIcon(title);
-
   return (
-    <NavigationMenuLink asChild>
-      <Link
-        href={href}
-        className="group relative flex items-start gap-4 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 hover:border-gray-900 dark:hover:border-gray-100 hover:shadow-lg transition-all duration-200 no-underline outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:ring-offset-2"
-      >
-        <div className="flex-shrink-0 w-12 h-12 rounded-md bg-gray-100 dark:bg-gray-700 flex items-center justify-center group-hover:bg-gray-900 dark:group-hover:bg-gray-100 transition-colors duration-200">
-          <Icon 
-            className="w-6 h-6 text-gray-700 dark:text-gray-300 group-hover:text-white dark:group-hover:text-gray-900 transition-colors duration-200" 
-          />
-        </div>
-        <div className="flex-1 min-w-0">
-          <div className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-1 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors">
-            {title}
-          </div>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            {productCount} {productCount === 1 ? "producto disponible" : "productos disponibles"}
-          </p>
-        </div>
-        <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-          <svg
-            className="w-5 h-5 text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path d="M9 5l7 7-7 7" />
-          </svg>
-        </div>
-      </Link>
-    </NavigationMenuLink>
+    <Link
+      href={href}
+      className="group relative flex items-center justify-between gap-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 hover:border-gray-900 dark:hover:border-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700 hover:shadow-md transition-all duration-200 no-underline outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:ring-offset-2 w-full min-w-0"
+      aria-label={`Ver productos de ${title}, ${productCount} ${productCount === 1 ? "producto disponible" : "productos disponibles"}`}
+    >
+      <div className="flex-1 min-w-0">
+        <span className="text-sm font-semibold text-gray-900 dark:text-gray-100 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors block">
+          {title}
+        </span>
+        <span className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 block" aria-label={`${productCount} ${productCount === 1 ? "producto" : "productos"}`}>
+          {productCount} {productCount === 1 ? "producto" : "productos"}
+        </span>
+      </div>
+      <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-all duration-200" aria-hidden="true">
+        <svg
+          className="w-4 h-4 text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100"
+          fill="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path d="M9 5l7 7-7 7" />
+        </svg>
+      </div>
+    </Link>
   );
 }

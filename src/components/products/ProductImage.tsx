@@ -6,8 +6,18 @@ interface Props {
     className?: React.StyleHTMLAttributes<HTMLImageElement>['className'];
     width?: number;
     height?: number;
+    priority?: boolean;
+    loading?: 'lazy' | 'eager';
 }
-export const ProductImage = ({ src, alt, className, height, width }: Props) => {
+export const ProductImage = ({ 
+    src, 
+    alt, 
+    className, 
+    height, 
+    width,
+    priority = false,
+    loading = 'lazy'
+}: Props) => {
 
     const localSrc = (src)
         ? src.startsWith('http')
@@ -22,6 +32,10 @@ export const ProductImage = ({ src, alt, className, height, width }: Props) => {
             width={width}
             height={height}
             className={className}
+            priority={priority}
+            loading={loading}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            quality={85}
         />
     )
 }

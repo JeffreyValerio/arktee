@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { ProductForm } from "../ui/product-form";
 import { GetProductBySlug } from "@/actions/products/getBySlug";
 import { GetCategories } from "@/actions";
+import { Card, CardContent } from "@/components/ui/card";
+import { Package, Edit } from "lucide-react";
 
 export default async function ProductEditPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params; 
@@ -12,19 +14,26 @@ export default async function ProductEditPage({ params }: { params: Promise<{ sl
   // Si la ruta es /admin/products/new => formulario vacío
   if (slug === "new") {
     return (
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-            Nuevo Producto
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Crea un nuevo producto para tu catálogo
-          </p>
+      <div className="space-y-8 pb-8">
+        <div className="flex items-center gap-4">
+          <div className="p-3 rounded-lg bg-primary/10">
+            <Package className="h-6 w-6 text-primary" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+              Nuevo Producto
+            </h1>
+            <p className="text-gray-600 dark:text-gray-400 mt-1">
+              Completa el formulario para agregar un nuevo producto a tu catálogo
+            </p>
+          </div>
         </div>
         
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-          <ProductForm categories={categories} />
-        </div>
+        <Card>
+          <CardContent className="p-6 md:p-8">
+            <ProductForm categories={categories} />
+          </CardContent>
+        </Card>
       </div>
     );
   }
@@ -37,19 +46,26 @@ export default async function ProductEditPage({ params }: { params: Promise<{ sl
   }
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-          Editar Producto
-        </h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">
-          Modifica los detalles del producto
-        </p>
+    <div className="space-y-8 pb-8">
+      <div className="flex items-center gap-4">
+        <div className="p-3 rounded-lg bg-primary/10">
+          <Edit className="h-6 w-6 text-primary" />
+        </div>
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            Editar Producto
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">
+            Modifica los detalles del producto: {product.title}
+          </p>
+        </div>
       </div>
       
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-        <ProductForm product={product} categories={categories} />
-      </div>
+      <Card>
+        <CardContent className="p-6 md:p-8">
+          <ProductForm product={product} categories={categories} />
+        </CardContent>
+      </Card>
     </div>
   );
 }

@@ -3,7 +3,8 @@ export const dynamic = 'force-dynamic';
 import { GetCategories } from "@/actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Plus, Edit, Trash2, Tag } from "lucide-react";
+import { Edit, Trash2, Tag } from "lucide-react";
+import { CreateCategoryDialog } from "./ui/create-category-dialog";
 
 export default async function CategoriesPage() {
   const categories = await GetCategories();
@@ -21,10 +22,7 @@ export default async function CategoriesPage() {
           </p>
         </div>
 
-        <Button className="flex items-center gap-2">
-          <Plus size={16} />
-          Nueva Categoría
-        </Button>
+        <CreateCategoryDialog />
       </div>
 
       {/* Stats */}
@@ -172,10 +170,7 @@ export default async function CategoriesPage() {
           <p className="text-gray-600 dark:text-gray-400 mb-6">
             Crea tu primera categoría para organizar tus productos
           </p>
-          <Button className="flex items-center gap-2">
-            <Plus size={16} />
-            Crear Primera Categoría
-          </Button>
+          <CreateCategoryDialog />
         </div>
       )}
     </div>
