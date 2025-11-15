@@ -9,6 +9,7 @@ import {
 } from "@/components";
 import { RelatedProducts } from "@/components/products/RelatedProducts";
 import { ProductInfoSections } from "@/components/products/ProductInfoSections";
+import { ProductViews } from "@/components/products/ProductViews";
 import { Badge } from "@/components/ui/badge";
 import { currencyFormat } from "@/lib/currency-format";
 import { Gender } from "@prisma/client";
@@ -279,6 +280,10 @@ export default async function ProductDetailsPage({params}: {params: Promise<{ sl
           <Bestsellers />
         </div>
       </div>
+      
+      {/* Product Views Counter - Floating */}
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      <ProductViews slug={product.slug} initialViews={(product as any).views || 0} />
     </div>
     </>
   );

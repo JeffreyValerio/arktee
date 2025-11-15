@@ -8,6 +8,7 @@ export interface IProduct {
   gender: string;
   sizes: string[];
   stock: number;
+  views?: number;
   categoryId: string; 
   createdAt: Date;
   updatedAt: Date;

@@ -14,6 +14,7 @@ import { CartCounter } from "./CartCounter";
 import { FavoritesCounter } from "./FavoritesCounter";
 import { ComparisonCounter } from "./ComparisonCounter";
 import { Filter, Shirt, Package, Grid, Layers } from "lucide-react";
+import { UserMenu } from "./UserMenu";
 
 export const Navbar = async () => {
   const categories = await GetCategories();
@@ -112,10 +113,15 @@ export const Navbar = async () => {
           </div>
 
           {/* Actions */}
-          <div className="flex items-center gap-3 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
             <FavoritesCounter />
             <ComparisonCounter />
             <CartCounter />
+          </div>
+          
+          {/* Mobile User Menu - Solo visible en mobile ya que en desktop está en el Topbar */}
+          <div className="md:hidden">
+            <UserMenu />
           </div>
         </div>
       </div>

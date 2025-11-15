@@ -13,6 +13,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 interface SidebarFiltersProps {
   categories: { id: string; name: string; productCount?: number }[];
@@ -102,11 +110,10 @@ export default function SidebarFilters({
     maxPrice ||
     sort;
 
-  return (
-    <aside className="w-full lg:w-72 border-r border-gray-200 dark:border-gray-700 pr-4 lg:pr-6">
-      <div className="sticky top-24 space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
+  const FiltersContent = () => (
+    <div className="space-y-6">
+        {/* Header - Solo visible en desktop */}
+        <div className="hidden lg:flex items-center justify-between">
           <div className="flex items-center gap-2">
             <SlidersHorizontal className="h-5 w-5 text-gray-600 dark:text-gray-400" />
             <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
@@ -126,15 +133,15 @@ export default function SidebarFilters({
           )}
         </div>
 
-        <Separator />
+        <Separator className="hidden lg:block" />
 
         {/* Ordenamiento */}
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
             Ordenar por
           </label>
           <Select value={sort || undefined} onValueChange={(value) => setSort(value === "default" ? "" : value)}>
-            <SelectTrigger className="w-full">
+            <SelectTrigger className="w-full h-10">
               <SelectValue placeholder="Seleccionar orden" />
             </SelectTrigger>
             <SelectContent>
@@ -151,7 +158,7 @@ export default function SidebarFilters({
 
         {!hideCategoryFilter && (
           <>
-            <Separator />
+            <Separator className="my-1" />
 
             {/* CATEGORÍAS */}
             <div className="space-y-3">
@@ -159,10 +166,10 @@ export default function SidebarFilters({
                 <Filter className="h-4 w-4" />
                 Categoría
               </h3>
-              <div className="space-y-1">
+              <div className="space-y-1.5">
                 <button
                   onClick={() => setSelectedCategory("")}
-                  className={`w-full text-left rounded-md px-3 py-2 text-sm transition-all ${
+                  className={`w-full text-left rounded-md px-3 py-2.5 text-sm transition-all ${
                     !selectedCategory
                       ? "bg-primary text-primary-foreground font-medium"
                       : "hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
@@ -178,7 +185,7 @@ export default function SidebarFilters({
                         selectedCategory === cat.name ? "" : cat.name
                       )
                     }
-                    className={`w-full text-left rounded-lg px-3 py-2 text-sm transition-all flex items-center justify-between ${
+                    className={`w-full text-left rounded-lg px-3 py-2.5 text-sm transition-all flex items-center justify-between ${
                       selectedCategory === cat.name
                         ? "bg-primary text-primary-foreground font-medium"
                         : "hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
@@ -199,7 +206,7 @@ export default function SidebarFilters({
               </div>
             </div>
 
-            <Separator />
+            <Separator className="my-1" />
           </>
         )}
 
@@ -208,12 +215,12 @@ export default function SidebarFilters({
           <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">
             Tallas
           </h3>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2.5">
             {availableSizes.map((size) => (
               <button
                 key={size}
                 onClick={() => toggleSize(size)}
-                className={`px-3 py-1.5 text-sm font-medium rounded-md border transition-all ${
+                className={`px-3.5 py-2 text-sm font-medium rounded-md border transition-all ${
                   selectedSizes.includes(size)
                     ? "bg-primary text-primary-foreground border-primary shadow-sm"
                     : "bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary hover:text-primary"
@@ -225,15 +232,15 @@ export default function SidebarFilters({
           </div>
         </div>
 
-        <Separator />
+        <Separator className="my-1" />
 
         {/* PRECIO */}
         <div className="space-y-3">
           <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">
             Rango de Precio
           </h3>
-          <div className="grid grid-cols-2 gap-2">
-            <div className="space-y-1">
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1.5">
               <label className="text-xs text-gray-500 dark:text-gray-400">
                 Mínimo
               </label>
@@ -242,11 +249,11 @@ export default function SidebarFilters({
                 placeholder="0"
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
-                className="h-9 text-sm"
+                className="h-10 text-sm"
                 min="0"
               />
             </div>
-            <div className="space-y-1">
+            <div className="space-y-1.5">
               <label className="text-xs text-gray-500 dark:text-gray-400">
                 Máximo
               </label>
@@ -255,13 +262,75 @@ export default function SidebarFilters({
                 placeholder="∞"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
-                className="h-9 text-sm"
+                className="h-10 text-sm"
                 min="0"
               />
             </div>
           </div>
         </div>
+    </div>
+  );
+
+  return (
+    <>
+      {/* Desktop Sidebar */}
+      <aside className="hidden lg:block w-72 border-r border-gray-200 dark:border-gray-700 pr-6">
+        <div className="sticky top-24">
+          <FiltersContent />
+        </div>
+      </aside>
+
+      {/* Mobile Sheet/Drawer */}
+      <div className="lg:hidden w-full mb-4 sm:mb-6">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              variant="outline"
+              size="sm"
+              className="w-full justify-start gap-2"
+            >
+              <SlidersHorizontal className="h-4 w-4" />
+              Filtros
+              {hasActiveFilters && (
+                <span className="ml-auto bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full">
+                  {[
+                    selectedCategory && 1,
+                    selectedSizes.length,
+                    minPrice && 1,
+                    maxPrice && 1,
+                    sort && 1,
+                  ].filter(Boolean).length}
+                </span>
+              )}
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-[85vw] sm:w-[400px] overflow-y-auto p-4 sm:p-6">
+            <SheetHeader className="mb-6">
+              <SheetTitle className="flex items-center gap-2 text-lg">
+                <SlidersHorizontal className="h-5 w-5" />
+                Filtros
+              </SheetTitle>
+              <SheetDescription className="text-xs mt-2">
+                Ajusta los filtros para encontrar exactamente lo que buscas
+              </SheetDescription>
+            </SheetHeader>
+            {hasActiveFilters && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={clearFilters}
+                className="w-full mb-6 text-xs"
+              >
+                <X className="h-3 w-3 mr-1" />
+                Limpiar todos los filtros
+              </Button>
+            )}
+            <div className="space-y-6">
+              <FiltersContent />
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
-    </aside>
+    </>
   );
 }
