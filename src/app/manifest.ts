@@ -1,0 +1,57 @@
+import type { MetadataRoute } from 'next';
+
+export default function manifest(): MetadataRoute.Manifest {
+	return {
+		name: 'ARKTEE - Camisetas Personalizadas',
+		short_name: 'ARKTEE',
+		description: 'Camisetas personalizadas de alta calidad en Costa Rica',
+		start_url: '/',
+		scope: '/',
+		display: 'standalone',
+		background_color: '#ffffff',
+		theme_color: '#000000',
+		orientation: 'portrait-primary',
+		dir: 'ltr',
+		lang: 'es',
+		categories: ['shopping', 'fashion'],
+		icons: [
+			{
+				src: '/images/logo.png',
+				sizes: '192x192',
+				type: 'image/png',
+				purpose: 'maskable',
+			},
+			{
+				src: '/images/logo.png',
+				sizes: '512x512',
+				type: 'image/png',
+				purpose: 'maskable',
+			},
+		],
+		screenshots: [],
+		shortcuts: [
+			{
+				name: 'Hombres',
+				short_name: 'Hombres',
+				description: 'Ver productos para hombres',
+				url: '/gender/men',
+				icons: [{ src: '/icon-192x192.png', sizes: '192x192' }],
+			},
+			{
+				name: 'Mujeres',
+				short_name: 'Mujeres',
+				description: 'Ver productos para mujeres',
+				url: '/gender/women',
+				icons: [{ src: '/icon-192x192.png', sizes: '192x192' }],
+			},
+			{
+				name: 'Carrito',
+				short_name: 'Carrito',
+				description: 'Ver mi carrito de compras',
+				url: '/cart',
+				icons: [{ src: '/icon-192x192.png', sizes: '192x192' }],
+			},
+		],
+	};
+}
+
